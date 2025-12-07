@@ -1,0 +1,54 @@
+{
+  "contractId": "0x7b7f54f88f4e6c8f9e5b4d2a1c3e6f8a9b2d4e7f",
+  "packageId": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b",
+  "moduleName": "memory",
+  "deployed": true,
+  "network": "iota-testnet",
+  "deployedAt": "2025-12-07T05:30:00Z",
+  "functions": {
+    "create_memory_box": {
+      "visibility": "public",
+      "params": ["&mut TxContext"],
+      "returns": "MemoryBox"
+    },
+    "create_memory": {
+      "visibility": "public",
+      "params": ["&mut MemoryBox", "String", "String", "u8", "u8", "&mut TxContext"],
+      "returns": "Memory"
+    },
+    "like_memory": {
+      "visibility": "public",
+      "params": ["&mut Memory", "&mut TxContext"],
+      "returns": "Like"
+    }
+  },
+  "structs": {
+    "Memory": {
+      "fields": {
+        "id": "UID",
+        "author": "address",
+        "title": "String",
+        "description": "String",
+        "emotion": "u8",
+        "rating": "u8",
+        "timestamp": "u64",
+        "likes": "u64"
+      }
+    },
+    "MemoryBox": {
+      "fields": {
+        "id": "UID",
+        "owner": "address",
+        "memory_count": "u64",
+        "total_likes": "u64"
+      }
+    },
+    "Like": {
+      "fields": {
+        "id": "UID",
+        "memory_id": "ID",
+        "liker": "address"
+      }
+    }
+  }
+}
