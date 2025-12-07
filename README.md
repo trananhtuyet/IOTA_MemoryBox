@@ -12,6 +12,10 @@ Memory Box is a Web3 social application that allows users to:
 - View a feed of memories from the community
 - Like and interact with memories
 - Store memories permanently on the blockchain
+## Explorer Link & Contract Address
+Network: Testnet
+Package ID: 0xefa9255cafe614ade205de0651cd9ec23f8523ac161493eb01da25908f214177
+Explorer: View on IOTA Explorer
 
 ## 🚀 Quick Start
 
