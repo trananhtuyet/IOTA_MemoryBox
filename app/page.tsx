@@ -1,11 +1,11 @@
-import { WalletConnect } from "@/components/Wallet-connect"
-import SampleIntegration from "@/components/sample"
+import { CustomWalletConnect } from "@/components/CustomWalletConnect"
+import { SocialFeed } from "@/components/SocialFeed"
 
 export default function Home() {
   return (
     <div>
-      <WalletConnect />
-      <SampleIntegration />
+      <CustomWalletConnect />
+      <SocialFeed />
     </div>
   )
 }

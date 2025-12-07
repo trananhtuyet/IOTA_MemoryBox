@@ -16,10 +16,10 @@ interface ProvidersProps {
 
 export function Provider({ children }: ProvidersProps) {
   return (
-    <Theme appearance="dark">
+    <Theme appearance="light">
       <QueryClientProvider client={queryClient}>
         <IotaClientProvider networks={networkConfig} defaultNetwork="devnet">
-          <WalletProvider autoConnect>{children}</WalletProvider>
+          <WalletProvider>{children}</WalletProvider>
         </IotaClientProvider>
       </QueryClientProvider>
     </Theme>

@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "IOTA dApp",
-  description: "IOTA dApp built with Next.js",
+  title: "Memory Box - Save Your Beautiful Moments",
+  description: "Store and cherish your positive memories. Revisit them anytime you need a little joy.",
 }
 
 export default function RootLayout({

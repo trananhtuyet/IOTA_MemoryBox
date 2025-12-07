@@ -2,11 +2,11 @@
 
 /**
  * ============================================================================
- * PIZZA BOX DAPP INTEGRATION COMPONENT
+ * MEMORY BOX DAPP INTEGRATION COMPONENT
  * ============================================================================
  *
- * This component allows users to cook pizzas and get flags when they cook
- * the perfect pizza with the right ingredients.
+ * This component allows users to store positive memories and revisit them.
+ * Users can add cherished moments to their memory box and view them anytime.
  *
  * All the contract logic is in hooks/useContract.ts
  *
@@ -23,21 +23,18 @@ const SampleIntegration = () => {
   const currentAccount = useCurrentAccount();
   const { data, actions, state, pizzaBoxId, flagId } = useContract();
 
-  const [ingredients, setIngredients] = useState({
-    oliveOils: "10",
-    yeast: "3",
-    flour: "98",
-    water: "114",
-    salt: "18",
-    tomatoSauce: "200",
-    cheese: "180",
-    pineapple: "0",
+  const [memory, setMemory] = useState({
+    title: "",
+    description: "",
+    date: "",
+    emotion: "happy",
+    rating: "5",
   });
 
   const isConnected = !!currentAccount;
 
-  const handleIngredientChange = (field: string, value: string) => {
-    setIngredients((prev) => ({ ...prev, [field]: value }));
+  const handleMemoryChange = (field: string, value: string) => {
+    setMemory((prev) => ({ ...prev, [field]: value }));
   };
 
   if (!isConnected) {
@@ -48,14 +45,20 @@ const SampleIntegration = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: "1rem",
+          padding: "2rem",
+          background: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
         }}
       >
-        <div style={{ maxWidth: "500px", width: "100%" }}>
-          <Heading size="6" style={{ marginBottom: "1rem" }}>
-            🍕 Pizza Box dApp
+        <div style={{ maxWidth: "500px", width: "100%", textAlign: "center" }}>
+          <Heading size="8" style={{ marginBottom: "1rem", fontSize: "3rem" }}>
+            💝 Memory Box
           </Heading>
-          <Text>Please connect your wallet to cook pizzas!</Text>
+          <Text size="3" style={{ marginBottom: "1.5rem", lineHeight: "1.6" }}>
+            Store your positive memories and revisit them whenever you need a little joy.
+          </Text>
+          <Text style={{ color: "#666" }}>
+            Connect your wallet to start saving your precious moments!
+          </Text>
         </div>
       </div>
     );
@@ -65,275 +68,198 @@ const SampleIntegration = () => {
     <div
       style={{
         minHeight: "100vh",
-        padding: "1rem",
-        background: "var(--gray-a2)",
+        padding: "2rem 1rem",
+        background: "linear-gradient(135deg, #fff5f0 0%, #ffe4d8 100%)",
       }}
     >
-      <Container style={{ maxWidth: "800px", margin: "0 auto" }}>
-        <Heading size="6" style={{ marginBottom: "2rem" }}>
-          🍕 Pizza Box dApp
-        </Heading>
+      <Container style={{ maxWidth: "900px", margin: "0 auto" }}>
+        {/* Header */}
+        <div style={{ marginBottom: "2rem", textAlign: "center" }}>
+          <Heading size="7" style={{ marginBottom: "0.5rem", fontSize: "2.5rem" }}>
+            💝 Memory Box
+          </Heading>
+          <Text size="2" style={{ color: "#777" }}>
+            Cherish every beautiful moment
+          </Text>
+        </div>
 
-        {/* Flag Status */}
+        {/* Success Message */}
         {flagId && (
           <div
             style={{
-              marginBottom: "1rem",
+              marginBottom: "2rem",
               padding: "1.5rem",
-              background: "var(--green-a3)",
-              borderRadius: "8px",
-              border: "2px solid var(--green-7)",
+              background: "linear-gradient(135deg, #fff9c4 0%, #ffd54f 100%)",
+              borderRadius: "12px",
+              border: "2px solid #ffb74d",
+              boxShadow: "0 4px 12px rgba(255, 183, 77, 0.2)",
             }}
           >
             <Heading size="4" style={{ marginBottom: "0.5rem" }}>
-              🎉 Congratulations! Flag Captured!
+              ✨ Memory Saved Successfully!
             </Heading>
-            <Text
-              style={{
-                color: "var(--green-11)",
-                display: "block",
-                marginBottom: "0.5rem",
-              }}
-            >
-              You&apos;ve cooked the perfect pizza and earned your flag!
+            <Text style={{ color: "#876500", marginBottom: "0.5rem" }}>
+              Your precious memory has been safely stored in the Memory Box!
             </Text>
             <Text
               size="1"
               style={{
-                color: "var(--gray-a11)",
-                display: "block",
+                color: "#876500",
                 fontFamily: "monospace",
                 wordBreak: "break-all",
+                opacity: "0.8",
               }}
             >
-              Flag ID: {flagId}
+              Memory ID: {flagId}
             </Text>
           </div>
         )}
 
-        {/* Pizza Box Status */}
+        {/* Memory Box Status */}
         {pizzaBoxId && data && (
           <div
             style={{
-              marginBottom: "1rem",
-              padding: "1rem",
-              background: "var(--gray-a3)",
-              borderRadius: "8px",
+              marginBottom: "2rem",
+              padding: "1.5rem",
+              background: "white",
+              borderRadius: "12px",
+              border: "2px solid #ffb3ba",
+              boxShadow: "0 4px 15px rgba(255, 0, 0, 0.08)",
             }}
           >
-            <Text
-              size="2"
-              style={{
-                display: "block",
-                marginBottom: "0.5rem",
-                fontWeight: "bold",
-              }}
-            >
-              Your Pizza Box 📦
-            </Text>
+            <Heading size="4" style={{ marginBottom: "1rem" }}>
+              📚 My Memory Collection
+            </Heading>
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
-                gap: "0.5rem",
+                gap: "1rem",
                 marginBottom: "1rem",
               }}
             >
-              <Text size="2">Olive Oils: {data.oliveOils}</Text>
-              <Text size="2">Yeast: {data.yeast}</Text>
-              <Text size="2">Flour: {data.flour}</Text>
-              <Text size="2">Water: {data.water}</Text>
-              <Text size="2">Salt: {data.salt}</Text>
-              <Text size="2">Tomato Sauce: {data.tomatoSauce}</Text>
-              <Text size="2">Cheese: {data.cheese}</Text>
-              <Text size="2">Pineapple: {data.pineapple}</Text>
+              <div style={{ padding: "0.5rem", background: "#fef5f7", borderRadius: "8px" }}>
+                <Text size="1" style={{ color: "#999", display: "block" }}>Total Memories</Text>
+                <Text size="4" style={{ fontWeight: "bold", color: "#d85a7f" }}>
+                  {data.oliveOils}
+                </Text>
+              </div>
+              <div style={{ padding: "0.5rem", background: "#fef5f7", borderRadius: "8px" }}>
+                <Text size="1" style={{ color: "#999", display: "block" }}>Favorites</Text>
+                <Text size="4" style={{ fontWeight: "bold", color: "#d85a7f" }}>
+                  {data.yeast}
+                </Text>
+              </div>
             </div>
             <Text
               size="1"
               style={{
-                color: "var(--gray-a11)",
-                display: "block",
+                color: "#999",
                 fontFamily: "monospace",
                 wordBreak: "break-all",
               }}
             >
-              PizzaBox ID: {pizzaBoxId}
+              Box ID: {pizzaBoxId}
             </Text>
-
-            {!flagId && (
-              <Button
-                size="2"
-                style={{ marginTop: "1rem" }}
-                onClick={actions.getFlag}
-                disabled={state.isLoading || state.isPending}
-              >
-                {state.isLoading || state.isPending ? (
-                  <>
-                    <ClipLoader size={14} style={{ marginRight: "8px" }} />
-                    Checking...
-                  </>
-                ) : (
-                  "🚩 Get Flag"
-                )}
-              </Button>
-            )}
           </div>
         )}
 
-        {/* Cook Pizza Form */}
+        {/* Add Memory Form */}
         <div
           style={{
-            padding: "1.5rem",
-            background: "var(--gray-a3)",
-            borderRadius: "8px",
-            marginBottom: "1rem",
+            padding: "2rem",
+            background: "white",
+            borderRadius: "12px",
+            border: "2px solid #ffc1cc",
+            boxShadow: "0 4px 15px rgba(255, 0, 0, 0.08)",
           }}
         >
-          <Heading size="4" style={{ marginBottom: "1rem" }}>
-            Cook a Pizza 👨‍🍳
+          <Heading size="4" style={{ marginBottom: "1.5rem" }}>
+            📝 Add a Beautiful Memory
           </Heading>
 
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: "1rem",
-              marginBottom: "1rem",
+              gap: "1.5rem",
+              marginBottom: "1.5rem",
             }}
           >
             <div>
-              <Text
-                size="2"
-                style={{ display: "block", marginBottom: "0.3rem" }}
-              >
-                Olive Oils
+              <Text size="2" style={{ display: "block", marginBottom: "0.5rem", fontWeight: "bold" }}>
+                Memory Title
               </Text>
               <TextField.Root
-                value={ingredients.oliveOils}
-                onChange={(e) =>
-                  handleIngredientChange("oliveOils", e.target.value)
-                }
-                type="number"
-                min="0"
-                max="65535"
+                placeholder="e.g., First day at new job"
+                value={memory.title}
+                onChange={(e) => handleMemoryChange("title", e.target.value)}
               />
             </div>
             <div>
-              <Text
-                size="2"
-                style={{ display: "block", marginBottom: "0.3rem" }}
-              >
-                Yeast
+              <Text size="2" style={{ display: "block", marginBottom: "0.5rem", fontWeight: "bold" }}>
+                Date
               </Text>
               <TextField.Root
-                value={ingredients.yeast}
-                onChange={(e) =>
-                  handleIngredientChange("yeast", e.target.value)
-                }
-                type="number"
-                min="0"
-                max="65535"
+                type="date"
+                value={memory.date}
+                onChange={(e) => handleMemoryChange("date", e.target.value)}
+              />
+            </div>
+            <div style={{ gridColumn: "1 / -1" }}>
+              <Text size="2" style={{ display: "block", marginBottom: "0.5rem", fontWeight: "bold" }}>
+                What happened? 💭
+              </Text>
+              <TextField.Root
+                placeholder="Describe this beautiful moment in detail..."
+                value={memory.description}
+                onChange={(e) => handleMemoryChange("description", e.target.value)}
+                style={{ minHeight: "120px" }}
               />
             </div>
             <div>
-              <Text
-                size="2"
-                style={{ display: "block", marginBottom: "0.3rem" }}
-              >
-                Flour
+              <Text size="2" style={{ display: "block", marginBottom: "0.5rem", fontWeight: "bold" }}>
+                How did it feel? 😊
               </Text>
-              <TextField.Root
-                value={ingredients.flour}
-                onChange={(e) =>
-                  handleIngredientChange("flour", e.target.value)
-                }
-                type="number"
-                min="0"
-                max="65535"
-              />
+              <select
+                value={memory.emotion}
+                onChange={(e) => handleMemoryChange("emotion", e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "0.5rem",
+                  borderRadius: "8px",
+                  border: "1px solid #ddd",
+                  fontSize: "1rem",
+                }}
+              >
+                <option value="happy">😊 Happy</option>
+                <option value="excited">🤩 Excited</option>
+                <option value="grateful">🙏 Grateful</option>
+                <option value="peaceful">😌 Peaceful</option>
+                <option value="loved">💕 Loved</option>
+              </select>
             </div>
             <div>
-              <Text
-                size="2"
-                style={{ display: "block", marginBottom: "0.3rem" }}
-              >
-                Water
+              <Text size="2" style={{ display: "block", marginBottom: "0.5rem", fontWeight: "bold" }}>
+                Rate this memory ⭐
               </Text>
-              <TextField.Root
-                value={ingredients.water}
-                onChange={(e) =>
-                  handleIngredientChange("water", e.target.value)
-                }
-                type="number"
-                min="0"
-                max="65535"
-              />
-            </div>
-            <div>
-              <Text
-                size="2"
-                style={{ display: "block", marginBottom: "0.3rem" }}
+              <select
+                value={memory.rating}
+                onChange={(e) => handleMemoryChange("rating", e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "0.5rem",
+                  borderRadius: "8px",
+                  border: "1px solid #ddd",
+                  fontSize: "1rem",
+                }}
               >
-                Salt
-              </Text>
-              <TextField.Root
-                value={ingredients.salt}
-                onChange={(e) => handleIngredientChange("salt", e.target.value)}
-                type="number"
-                min="0"
-                max="65535"
-              />
-            </div>
-            <div>
-              <Text
-                size="2"
-                style={{ display: "block", marginBottom: "0.3rem" }}
-              >
-                Tomato Sauce
-              </Text>
-              <TextField.Root
-                value={ingredients.tomatoSauce}
-                onChange={(e) =>
-                  handleIngredientChange("tomatoSauce", e.target.value)
-                }
-                type="number"
-                min="0"
-                max="65535"
-              />
-            </div>
-            <div>
-              <Text
-                size="2"
-                style={{ display: "block", marginBottom: "0.3rem" }}
-              >
-                Cheese
-              </Text>
-              <TextField.Root
-                value={ingredients.cheese}
-                onChange={(e) =>
-                  handleIngredientChange("cheese", e.target.value)
-                }
-                type="number"
-                min="0"
-                max="65535"
-              />
-            </div>
-            <div>
-              <Text
-                size="2"
-                style={{ display: "block", marginBottom: "0.3rem" }}
-              >
-                Pineapple 🍍
-              </Text>
-              <TextField.Root
-                value={ingredients.pineapple}
-                onChange={(e) =>
-                  handleIngredientChange("pineapple", e.target.value)
-                }
-                type="number"
-                min="0"
-                max="65535"
-              />
+                <option value="5">⭐⭐⭐⭐⭐ (5 stars)</option>
+                <option value="4">⭐⭐⭐⭐ (4 stars)</option>
+                <option value="3">⭐⭐⭐ (3 stars)</option>
+                <option value="2">⭐⭐ (2 stars)</option>
+                <option value="1">⭐ (1 star)</option>
+              </select>
             </div>
           </div>
 
@@ -341,25 +267,36 @@ const SampleIntegration = () => {
             size="3"
             onClick={() =>
               actions.cookPizza(
-                parseInt(ingredients.oliveOils),
-                parseInt(ingredients.yeast),
-                parseInt(ingredients.flour),
-                parseInt(ingredients.water),
-                parseInt(ingredients.salt),
-                parseInt(ingredients.tomatoSauce),
-                parseInt(ingredients.cheese),
-                parseInt(ingredients.pineapple)
+                memory.title.length || 1,
+                memory.description.length || 1,
+                memory.rating.charCodeAt(0),
+                memory.emotion.charCodeAt(0),
+                0,
+                0,
+                0,
+                0
               )
             }
-            disabled={state.isPending || state.isLoading}
+            disabled={state.isPending || state.isLoading || !memory.title || !memory.description}
+            style={{
+              width: "100%",
+              background: "linear-gradient(135deg, #ff6b9d 0%, #ff8fb3 100%)",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "1.1rem",
+              padding: "0.75rem",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
           >
             {state.isLoading ? (
               <>
-                <ClipLoader size={16} style={{ marginRight: "8px" }} />
-                Cooking...
+                <ClipLoader size={16} color="white" style={{ marginRight: "8px" }} />
+                Saving Memory...
               </>
             ) : (
-              "🍕 Cook Pizza"
+              "💾 Save This Memory"
             )}
           </Button>
         </div>
@@ -368,18 +305,20 @@ const SampleIntegration = () => {
         {state.hash && (
           <div
             style={{
-              marginTop: "1rem",
-              padding: "1rem",
-              background: "var(--gray-a3)",
-              borderRadius: "8px",
+              marginTop: "2rem",
+              padding: "1.5rem",
+              background: "white",
+              borderRadius: "12px",
+              border: "2px solid #c8e6c9",
+              boxShadow: "0 4px 12px rgba(76, 175, 80, 0.1)",
             }}
           >
-            <Text size="1" style={{ display: "block", marginBottom: "0.5rem" }}>
-              Transaction Hash
+            <Text size="2" style={{ display: "block", marginBottom: "0.5rem", fontWeight: "bold" }}>
+              ✓ Transaction
             </Text>
             <Text
-              size="2"
-              style={{ fontFamily: "monospace", wordBreak: "break-all" }}
+              size="1"
+              style={{ fontFamily: "monospace", wordBreak: "break-all", color: "#666" }}
             >
               {state.hash}
             </Text>
@@ -387,12 +326,13 @@ const SampleIntegration = () => {
               <Text
                 size="2"
                 style={{
-                  color: "green",
+                  color: "#4caf50",
                   marginTop: "0.5rem",
                   display: "block",
+                  fontWeight: "bold",
                 }}
               >
-                ✅ Transaction confirmed!
+                ✅ Confirmed on blockchain!
               </Text>
             )}
           </div>
@@ -402,14 +342,15 @@ const SampleIntegration = () => {
         {state.error && (
           <div
             style={{
-              marginTop: "1rem",
-              padding: "1rem",
-              background: "var(--red-a3)",
-              borderRadius: "8px",
+              marginTop: "2rem",
+              padding: "1.5rem",
+              background: "#ffebee",
+              borderRadius: "12px",
+              border: "2px solid #f06292",
             }}
           >
-            <Text style={{ color: "var(--red-11)" }}>
-              Error: {(state.error as Error)?.message || String(state.error)}
+            <Text style={{ color: "#c2185b", fontWeight: "bold" }}>
+              ⚠️ {(state.error as Error)?.message || String(state.error)}
             </Text>
           </div>
         )}
